@@ -1,0 +1,41 @@
+<div *ngIf="cart; else emptyCart">
+  <h2>Tu carrito</h2>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cart?.CartItems">
+        <td>{{ item?.Product?.name }}</td>
+        <td>
+          <div class="input-group">
+            <button class="btn btn-outline-secondary" (click)="updateQuantity(item, item?.quantity - 1)" [disabled]="item?.quantity <= 1">-</button>
+            <input type="number" class="form-control text-center" [value]="item?.quantity" (change)="onQuantityChange($event, item)">
+            <button class="btn btn-outline-secondary" (click)="updateQuantity(item, item?.quantity + 1)">+</button>
+          </div>
+        </td>
+        <td>{{ item?.Product?.price | currency }}</td>
+        <td>{{ item?.Product?.price * item?.quantity | currency }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="removeFromCart(item)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Total: {{ cart?.total | currency }}</h3>
+  <button  class="btn btn-primary" (click)="proceedToPayment()">Pagar</button>
+</div>
+
+<ng-template #emptyCart>
+  <div class="alert alert-info" role="alert">
+    Tu carrito está vacío.
+  </div>
+</ng-template>

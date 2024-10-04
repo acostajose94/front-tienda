@@ -1,0 +1,38 @@
+<div
+  class="container"
+>
+  <div
+    class="row justify-content-center align-items-center g-2"
+  >
+  <ul>
+    @for (prod of products; track prod.id) {
+      <li>
+        <div> 
+ 
+        </div>
+        <div class="card w-25">
+          <img class="card-img-top" 
+          [src]="prod.imageUrl ? prod.imageUrl : 'default-image.jpg'" 
+          alt="{{prod.name}} " />
+          <div class="card-body">
+            <h4 class="card-title">{{prod.name}} </h4>
+            <p class="card-text">{{prod.price}}</p>
+            <button
+            type="button"
+            class="btn btn-primary"
+            (click)="addToCart(prod.id)">
+          
+            Agregar
+          </button>
+            
+          </div>
+        </div>
+        
+      </li>
+    }
+  </ul>
+  </div>
+  
+</div> 
+
+

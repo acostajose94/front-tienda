@@ -1,0 +1,86 @@
+<!-- Navegación para las pestañas de Login y Register -->
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-login-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-login" aria-selected="true">
+      Login
+    </button>
+    <button class="nav-link" id="nav-register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">
+      Register
+    </button>
+  </div>
+</nav>
+
+<!-- Contenido de las pestañas -->
+<div class="tab-content" id="nav-tabContent">
+  
+  <!-- Pestaña de Login -->
+  <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="mt-4">
+      <div class="mb-3">
+        <label for="loginEmail" class="form-label">Email</label>
+        <input type="email" id="loginEmail" class="form-control" formControlName="email" placeholder="Enter your email" />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+          Please enter a valid email.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="loginPassword" class="form-label">Password</label>
+        <input type="password" id="loginPassword" class="form-control" formControlName="password" placeholder="Enter your password" />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+
+      <!-- Mensajes de éxito/error -->
+      <div *ngIf="errorMessage" class="text-danger mt-3">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="text-success mt-3">{{ successMessage }}</div>
+    </form>
+  </div>
+  
+  <!-- Pestaña de Register -->
+  <div class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="mt-4">
+      <div class="mb-3">
+        <label for="registerUsername" class="form-label">Username</label>
+        <input type="text" id="registerUsername" class="form-control" formControlName="username" placeholder="Enter your username" />
+        <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="text-danger">
+          Username must be at least 4 characters.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="registerEmail" class="form-label">Email</label>
+        <input type="email" id="registerEmail" class="form-control" formControlName="email" placeholder="Enter your email" />
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
+          Please enter a valid email.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="registerPassword" class="form-label">Password</label>
+        <input type="password" id="registerPassword" class="form-control" formControlName="password" placeholder="Enter your password" />
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirm your password" />
+        <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched" class="text-danger">
+          Passwords must match.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+
+      <!-- Mensajes de éxito/error -->
+      <div *ngIf="errorMessage" class="text-danger mt-3">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="text-success mt-3">{{ successMessage }}</div>
+    </form>
+  </div>
+
+</div>
