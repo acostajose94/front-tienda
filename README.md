@@ -1,27 +1,81 @@
-# FrontTienda
+# Sistema de Gestión de Tienda - Frontend React
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+Sistema completo de gestión de tienda con React, TypeScript y Tailwind CSS.
 
-## Development server
+## 🚀 Características
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Módulos Principales
 
-## Code scaffolding
+1. **Autenticación y Roles**
+   - Login/Registro de usuarios
+   - Roles: Admin, Manager, Cajero, Cliente
+   - Protección de rutas basada en roles
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. **Gestión de Productos**
+   - CRUD completo de productos
+   - Categorización
+   - Control de inventario
+   - Búsqueda y filtros
 
-## Build
+3. **Gestión de Clientes**
+   - Registro con múltiples tipos de documento (DNI, Pasaporte, Cédula, RUC)
+   - Administración completa de datos
+   - Historial de compras
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+4. **Punto de Venta (POS)**
+   - Sistema de caja registradora
+   - Búsqueda rápida de productos
+   - Aplicación de descuentos
+   - Múltiples métodos de pago
+   - Cálculo automático de impuestos
 
-## Running unit tests
+5. **Reportes**
+   - Reportes diarios, semanales y mensuales
+   - Reportes por caja registradora
+   - Reportes por cajero
+   - Reportes por local
+   - Exportación a PDF, Excel y CSV
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+6. **Analytics**
+   - Tendencias de compras
+   - Productos más vendidos
+   - Análisis por categoría
+   - Gráficos interactivos
+   - Análisis de ingresos
 
-## Running end-to-end tests
+## 🛠️ Stack Tecnológico
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **React 18** + **TypeScript**
+- **Vite** - Build tool
+- **React Router v6** - Navegación
+- **Zustand** - Estado global
+- **Tailwind CSS** - Estilos
+- **React Hook Form** + **Zod** - Formularios
+- **Recharts** - Gráficos
+- **Axios** - HTTP client
 
-## Further help
+## 🚀 Instalación
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Instalar dependencias: `npm install`
+2. Configurar .env: `cp .env.example .env`
+3. Iniciar desarrollo: `npm run dev`
+4. Build producción: `npm run build`
+
+## 📁 Estructura
+
+```
+src/
+├── features/       # Módulos de funcionalidad
+├── components/     # Componentes reutilizables
+├── services/       # Servicios API
+├── store/          # Estado global
+└── types/          # TypeScript types
+```
+
+## 🔐 Roles
+
+- **Admin**: Acceso completo
+- **Manager**: Reportes y gestión
+- **Cashier**: POS y ventas
+- **Customer**: Compras
+
