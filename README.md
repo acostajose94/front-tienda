@@ -43,6 +43,51 @@ Sistema completo de gestión de tienda con React, TypeScript y Tailwind CSS.
    - Gráficos interactivos
    - Análisis de ingresos
 
+7. **Gestión de Categorías**
+   - CRUD de categorías de productos
+   - Categorías jerárquicas (padre/hijo)
+   - Asignación a productos
+
+8. **Tienda Online (Storefront)**
+   - Catálogo público de productos
+   - Filtros por categoría y precio
+   - Búsqueda avanzada
+   - Vistas grid y lista
+   - Página de detalle de producto
+
+9. **Sistema de Cupones/Descuentos**
+   - Administración completa de cupones
+   - Tipos: Porcentaje o Monto Fijo
+   - Fechas de validez
+   - Límites de uso
+   - Compra mínima y descuento máximo
+   - Aplicación en checkout
+
+10. **Checkout Avanzado**
+    - **Delivery:** Envío a domicilio con costo por ubicación
+    - **Pickup:** Retiro en tienda (gratis)
+    - Selección de tienda más cercana
+    - Aplicación de cupones
+    - Múltiples métodos de pago
+
+11. **Métodos de Pago**
+    - **Stripe:** Tarjetas internacionales
+    - **Culqi:** Tarjetas y Yape (Perú)
+    - **Efectivo:** Pago contra entrega
+    - **Transferencia:** Con número de referencia
+
+12. **Registro con Verificación Email**
+    - Registro de clientes separado
+    - Código de 6 dígitos por email
+    - Verificación obligatoria
+    - Reenvío de código
+
+13. **Perfil de Usuario**
+    - Editar información personal
+    - Cambiar contraseña
+    - Historial completo de compras
+    - Ver estado de pedidos
+
 ## 🛠️ Stack Tecnológico
 
 - **React 18** + **TypeScript**
@@ -53,13 +98,39 @@ Sistema completo de gestión de tienda con React, TypeScript y Tailwind CSS.
 - **React Hook Form** + **Zod** - Formularios
 - **Recharts** - Gráficos
 - **Axios** - HTTP client
+- **Stripe** - Pagos internacionales
+- **Culqi** - Pagos Perú
+- **date-fns** - Manejo de fechas
+- **Lucide React** - Iconos
 
 ## 🚀 Instalación
 
-1. Instalar dependencias: `npm install`
-2. Configurar .env: `cp .env.example .env`
-3. Iniciar desarrollo: `npm run dev`
-4. Build producción: `npm run build`
+1. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+2. **Configurar variables de entorno:**
+   ```bash
+   cp .env.example .env
+   ```
+
+   Editar `.env` con tus claves:
+   ```env
+   VITE_API_URL=http://localhost:5000/api
+   VITE_STRIPE_PUBLIC_KEY=pk_test_...
+   VITE_CULQI_PUBLIC_KEY=pk_test_...
+   ```
+
+3. **Iniciar desarrollo:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build para producción:**
+   ```bash
+   npm run build
+   ```
 
 ## 📁 Estructura
 
@@ -74,8 +145,191 @@ src/
 
 ## 🔐 Roles
 
-- **Admin**: Acceso completo
-- **Manager**: Reportes y gestión
-- **Cashier**: POS y ventas
-- **Customer**: Compras
+- **Admin**: Acceso completo al sistema
+- **Manager**: Reportes, analytics y gestión
+- **Cashier**: Punto de venta y ventas
+- **Customer**: Compras en tienda online
+
+## 💳 Métodos de Pago Soportados
+
+### Stripe (Internacional)
+- Tarjetas de crédito/débito
+- Redirección a Stripe Checkout
+- Procesamiento seguro
+
+### Culqi (Perú)
+- Tarjetas Visa/Mastercard
+- Yape
+- Procesamiento local
+
+### Otros
+- Efectivo (contra entrega)
+- Transferencia bancaria
+
+## 🚚 Opciones de Entrega
+
+### Delivery
+Envío a domicilio con costos según ciudad:
+- Lima: S/. 10
+- Callao: S/. 12
+- Arequipa: S/. 20
+- Trujillo: S/. 18
+- Cusco: S/. 25
+- Otras ciudades: S/. 15
+
+### Pickup
+- Retiro en tienda seleccionada
+- **Gratis**
+- Lista de tiendas disponibles
+
+## 🎫 Sistema de Cupones
+
+Características:
+- Códigos únicos personalizables
+- Descuento por porcentaje o monto fijo
+- Configuración de fechas de validez
+- Límite de usos
+- Compra mínima requerida
+- Descuento máximo permitido
+- Estados: Activo, Expirado, Agotado, Programado
+
+## 📱 Rutas Principales
+
+### Públicas
+- `/` - Tienda online
+- `/shop` - Catálogo de productos
+- `/shop/product/:id` - Detalle de producto
+- `/cart` - Carrito de compras
+- `/checkout` - Finalizar compra
+- `/register-customer` - Registro de cliente
+- `/verify-email` - Verificación de email
+
+### Protegidas (Usuario)
+- `/profile` - Perfil y datos personales
+- `/profile` (tab: orders) - Historial de compras
+
+### Admin
+- `/admin` - Dashboard administrativo
+- `/admin/products` - Gestión de productos
+- `/admin/categories` - Gestión de categorías
+- `/admin/customers` - Gestión de clientes
+- `/admin/discounts` - Gestión de cupones
+- `/pos` - Punto de venta
+- `/reports` - Reportes de ventas
+- `/analytics` - Analytics y tendencias
+
+## 🎨 Características de UX
+
+- ✅ Diseño responsive (mobile-first)
+- ✅ Validación de formularios en tiempo real
+- ✅ Feedback visual en todas las acciones
+- ✅ Manejo de errores amigable
+- ✅ Loading states en operaciones async
+- ✅ Confirmaciones para acciones destructivas
+- ✅ Navegación intuitiva
+- ✅ Carrito persistente (localStorage)
+
+## 🔧 Servicios API
+
+El frontend se conecta con estos endpoints:
+
+### Autenticación
+- `POST /auth/login` - Iniciar sesión
+- `POST /auth/register` - Registro admin
+- `POST /auth/register-customer` - Registro cliente
+- `POST /auth/verify-email` - Verificar email
+- `POST /auth/resend-verification-code` - Reenviar código
+
+### Productos
+- `GET /products` - Listar productos
+- `POST /products` - Crear producto
+- `PUT /products/:id` - Actualizar producto
+- `DELETE /products/:id` - Eliminar producto
+
+### Categorías
+- `GET /products/categories` - Listar categorías
+- `POST /products/categories` - Crear categoría
+
+### Clientes
+- `GET /customers` - Listar clientes
+- `POST /customers` - Crear cliente
+- `GET /customers/search/document` - Buscar por documento
+
+### Descuentos
+- `GET /discounts` - Listar descuentos
+- `POST /discounts` - Crear descuento
+- `POST /discounts/validate` - Validar cupón
+
+### Tiendas
+- `GET /stores` - Listar tiendas
+
+### Órdenes
+- `GET /orders` - Listar órdenes
+- `POST /orders` - Crear orden
+
+### Pagos
+- `POST /payments/stripe/create-checkout-session` - Stripe
+- `POST /payments/culqi/create-charge` - Culqi
+- `POST /payments/cash` - Efectivo
+- `POST /payments/transfer` - Transferencia
+
+### Reportes
+- `GET /reports/sales` - Reporte de ventas
+- `GET /reports/sales/daily` - Reporte diario
+- `GET /reports/sales/weekly` - Reporte semanal
+- `GET /reports/sales/monthly` - Reporte mensual
+
+### Analytics
+- `GET /analytics/trends` - Tendencias de compras
+- `GET /analytics/products/top-selling` - Productos top
+
+## 📊 Estado Global (Zustand)
+
+### authStore
+- `user` - Usuario actual
+- `token` - JWT token
+- `isAuthenticated` - Estado de autenticación
+- `login()` - Iniciar sesión
+- `logout()` - Cerrar sesión
+- `loadUser()` - Cargar usuario actual
+
+### cartStore
+- `items` - Items del carrito
+- `addItem()` - Agregar producto
+- `removeItem()` - Eliminar producto
+- `updateQuantity()` - Actualizar cantidad
+- `clearCart()` - Vaciar carrito
+- `getSubtotal()` - Calcular subtotal
+- `getItemCount()` - Contar items
+
+## 🚀 Despliegue
+
+### Variables de Entorno Requeridas
+
+```env
+# Backend API
+VITE_API_URL=https://api.tutienda.com
+
+# Stripe
+VITE_STRIPE_PUBLIC_KEY=pk_live_...
+
+# Culqi
+VITE_CULQI_PUBLIC_KEY=pk_live_...
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+Los archivos compilados estarán en `dist/`
+
+## 📝 Licencia
+
+MIT
+
+---
+
+**Sistema completo de e-commerce listo para producción** 🚀
 

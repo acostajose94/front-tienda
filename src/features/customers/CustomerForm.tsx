@@ -89,7 +89,7 @@ export function CustomerForm() {
 
     try {
       if (id) {
-        await customerService.updateCustomer(id, data);
+        await customerService.updateCustomer(id, data as any);
       } else {
         await customerService.createCustomer(data as any);
       }
