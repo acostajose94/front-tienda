@@ -32,9 +32,9 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/products" className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2">
-              <Package size={18} />
-              Productos
+            <Link to="/shop" className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2">
+              <Store size={18} />
+              Tienda
             </Link>
 
             {isAuthenticated && (isCashier || hasAdminAccess) && (

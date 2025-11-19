@@ -42,6 +42,9 @@ import { Cart } from './features/cart/Cart';
 // Admin Dashboard
 import { AdminDashboard } from './features/admin/AdminDashboard';
 
+// Discounts
+import { DiscountList } from './features/discounts/DiscountList';
+
 // Protected Route Component
 function ProtectedRoute({ children, allowedRoles }: { children: JSX.Element; allowedRoles?: UserRole[] }) {
   const { isAuthenticated, user } = useAuthStore();
@@ -153,6 +156,14 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]}>
               <Layout><CategoryList /></Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/discounts"
+          element={
+            <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]}>
+              <Layout><DiscountList /></Layout>
             </ProtectedRoute>
           }
         />
