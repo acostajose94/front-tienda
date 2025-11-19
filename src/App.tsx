@@ -46,6 +46,10 @@ import { AdminDashboard } from './features/admin/AdminDashboard';
 // Discounts
 import { DiscountList } from './features/discounts/DiscountList';
 
+// Invoices
+import { InvoiceList } from './features/invoices/InvoiceList';
+import { InvoiceDetail } from './features/invoices/InvoiceDetail';
+
 // Protected Route Component
 function ProtectedRoute({ children, allowedRoles }: { children: JSX.Element; allowedRoles?: UserRole[] }) {
   const { isAuthenticated, user } = useAuthStore();
@@ -165,6 +169,24 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]}>
               <Layout><DiscountList /></Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Invoices Routes */}
+        <Route
+          path="/admin/invoices"
+          element={
+            <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]}>
+              <Layout><InvoiceList /></Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/invoices/:id"
+          element={
+            <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]}>
+              <Layout><InvoiceDetail /></Layout>
             </ProtectedRoute>
           }
         />

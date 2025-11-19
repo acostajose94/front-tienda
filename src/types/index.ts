@@ -491,3 +491,194 @@ export interface Expense {
   createdAt: string;
   updatedAt: string;
 }
+
+// ============================================
+// FACTURACIÓN ELECTRÓNICA - NUBEFACT
+// ============================================
+
+export enum InvoiceType {
+  FACTURA = '01', // Factura
+  BOLETA = '03', // Boleta de Venta
+  NOTA_CREDITO = '07', // Nota de Crédito
+  NOTA_DEBITO = '08', // Nota de Débito
+}
+
+export enum InvoiceStatus {
+  DRAFT = 'DRAFT', // Borrador
+  SENT = 'SENT', // Enviado a SUNAT
+  ACCEPTED = 'ACCEPTED', // Aceptado por SUNAT
+  REJECTED = 'REJECTED', // Rechazado por SUNAT
+  CANCELLED = 'CANCELLED', // Anulado
+}
+
+export enum InvoiceDocumentType {
+  DNI = '1', // DNI
+  CARNET_EXTRANJERIA = '4', // Carnet de Extranjería
+  RUC = '6', // RUC
+  PASAPORTE = '7', // Pasaporte
+}
+
+export interface InvoiceItem {
+  codigo: string;
+  descripcion: string;
+  cantidad: number;
+  valor_unitario: number;
+  precio_unitario: number;
+  descuento: number;
+  subtotal: number;
+  tipo_igv: string; // '10' = Gravado
+  igv: number;
+  total: number;
+  anticipo_regularizacion?: boolean;
+  anticipo_documento_serie?: string;
+  anticipo_documento_numero?: string;
+}
+
+export interface NubefactInvoiceRequest {
+  operacion: 'generar_comprobante';
+  tipo_de_comprobante: InvoiceType;
+  serie: string;
+  numero: string;
+  sunat_transaction: '1' | '2'; // 1 = Producción, 2 = Prueba
+  cliente_tipo_de_documento: InvoiceDocumentType;
+  cliente_numero_de_documento: string;
+  cliente_denominacion: string;
+  cliente_direccion: string;
+  cliente_email?: string;
+  cliente_email_1?: string;
+  cliente_email_2?: string;
+  fecha_de_emision: string; // YYYY-MM-DD
+  fecha_de_vencimiento?: string;
+  moneda: '1' | '2'; // 1 = PEN, 2 = USD
+  tipo_de_cambio?: number;
+  porcentaje_de_igv: number; // 18.00
+  descuento_global?: number;
+  total_descuento?: number;
+  total_anticipo?: number;
+  total_gravada: number;
+  total_inafecta?: number;
+  total_exonerada?: number;
+  total_igv: number;
+  total_gratuita?: number;
+  total_otros_cargos?: number;
+  total: number;
+  percepcion_tipo?: string;
+  percepcion_base_imponible?: number;
+  percepcion_total?: number;
+  detraccion?: boolean;
+  observaciones?: string;
+  documento_que_se_modifica_tipo?: string;
+  documento_que_se_modifica_serie?: string;
+  documento_que_se_modifica_numero?: string;
+  tipo_de_nota_de_credito?: string;
+  tipo_de_nota_de_debito?: string;
+  enviar_automaticamente_a_la_sunat?: boolean;
+  enviar_automaticamente_al_cliente?: boolean;
+  codigo_unico?: string;
+  condiciones_de_pago?: string;
+  medio_de_pago?: string;
+  placa_vehiculo?: string;
+  orden_compra_servicio?: string;
+  tabla_personalizada_codigo?: string;
+  formato_de_pdf?: string;
+  items: InvoiceItem[];
+}
+
+export interface NubefactInvoiceResponse {
+  errors?: string;
+  sunat_description?: string;
+  sunat_note?: string;
+  sunat_responsecode?: string;
+  sunat_soap_error?: string;
+  pdf_zip_base64?: string;
+  xml_zip_base64?: string;
+  cdr_zip_base64?: string;
+  enlace_del_pdf?: string;
+  enlace_del_xml?: string;
+  enlace_del_cdr?: string;
+  cadena_para_codigo_qr?: string;
+  codigo_hash?: string;
+  codigo_de_barras?: string;
+  aceptada_por_sunat?: boolean;
+  descripcion_sunat?: string;
+  nota_sunat?: string;
+  numero_sunat?: string;
+}
+
+export interface Invoice {
+  id: string;
+  orderId: string;
+  type: InvoiceType;
+  status: InvoiceStatus;
+  serie: string;
+  numero: string;
+
+  // Cliente
+  customerDocumentType: InvoiceDocumentType;
+  customerDocumentNumber: string;
+  customerName: string;
+  customerAddress: string;
+  customerEmail?: string;
+
+  // Fechas
+  issueDate: string;
+  dueDate?: string;
+
+  // Montos
+  currency: 'PEN' | 'USD';
+  subtotal: number;
+  discount: number;
+  igv: number;
+  total: number;
+
+  // Items
+  items: InvoiceItem[];
+
+  // SUNAT
+  sunatResponse?: NubefactInvoiceResponse;
+  sunatAccepted: boolean;
+  sunatDescription?: string;
+
+  // Enlaces
+  pdfUrl?: string;
+  xmlUrl?: string;
+  cdrUrl?: string;
+  qrCode?: string;
+
+  // Notas
+  notes?: string;
+
+  // Modificaciones (para notas de crédito/débito)
+  modifiedInvoiceType?: string;
+  modifiedInvoiceSerie?: string;
+  modifiedInvoiceNumber?: string;
+  creditNoteReason?: string;
+  debitNoteReason?: string;
+
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface NubefactConfig {
+  id: string;
+  ruc: string;
+  usuarioSol: string;
+  claveSol: string;
+  apiToken: string;
+  production: boolean; // true = Producción, false = Prueba
+
+  // Series para comprobantes
+  facturaSerie: string; // Ej: F001
+  boletaSerie: string; // Ej: B001
+  notaCreditoSerie: string; // Ej: FC01, BC01
+  notaDebitoSerie: string; // Ej: FD01, BD01
+
+  // Configuración adicional
+  sendToSunatAutomatically: boolean;
+  sendToCustomerAutomatically: boolean;
+  logoUrl?: string;
+
+  createdAt: string;
+  updatedAt: string;
+}

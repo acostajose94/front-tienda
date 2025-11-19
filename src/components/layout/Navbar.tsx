@@ -56,6 +56,10 @@ export function Navbar() {
                   <FileText size={18} />
                   Finanzas
                 </Link>
+                <Link to="/admin/invoices" className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2">
+                  <FileText size={18} />
+                  Facturas
+                </Link>
                 <Link to="/analytics" className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium">
                   Analytics
                 </Link>

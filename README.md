@@ -88,7 +88,7 @@ Sistema completo de gestión de tienda con React, TypeScript y Tailwind CSS.
     - Historial completo de compras
     - Ver estado de pedidos
 
-14. **Reportes Financieros** (Nuevo)
+14. **Reportes Financieros**
     - **Ganancias:** Análisis de ingresos, costos, ganancia bruta/neta, margen de utilidad por categoría
     - **Impuestos:** Cálculo de IGV (18%), Renta, Municipal, declaraciones exportables
     - **Nómina:** Gestión de sueldos, deducciones (AFP/ONP), beneficios (CTS, Gratificaciones), reportes por departamento
@@ -98,6 +98,42 @@ Sistema completo de gestión de tienda con React, TypeScript y Tailwind CSS.
     - **Exportación:** PDF, Excel, CSV para todos los reportes
     - **Gestión de Empleados:** CRUD completo con cargos, departamentos, salarios
     - **Gestión de Gastos:** Registro y categorización de gastos operativos
+
+15. **Facturación Electrónica - NubeFact** (Nuevo)
+    - **Emisión de Comprobantes:**
+      - Facturas electrónicas (para empresas con RUC)
+      - Boletas de venta electrónicas (para personas naturales)
+      - Notas de crédito (devoluciones, anulaciones)
+      - Notas de débito (cargos adicionales)
+    - **Integración SUNAT:**
+      - Envío automático a SUNAT
+      - Validación en tiempo real
+      - Descarga de CDR (Constancia de Recepción)
+      - Consulta de estado de comprobantes
+    - **Gestión de Comprobantes:**
+      - Lista completa con filtros (fecha, tipo, estado, cliente)
+      - Detalle completo del comprobante
+      - Visualización de items y totales
+      - Estados: Borrador, Enviado, Aceptado, Rechazado, Anulado
+    - **Descarga de Archivos:**
+      - PDF con formato oficial
+      - XML firmado digitalmente
+      - CDR de SUNAT
+      - Código QR para verificación
+    - **Envío Automático:**
+      - Email al cliente con PDF adjunto
+      - Envío automático a SUNAT tras generación
+      - Configuración por comprobante
+    - **Generación desde Orden:**
+      - Modal para generar comprobante desde cualquier orden/venta
+      - Auto-llenado de datos del cliente
+      - Validación de RUC para facturas
+      - Cálculo automático de IGV (18%)
+    - **Configuración:**
+      - Credenciales de NubeFact (RUC, Token, Usuario SOL)
+      - Series personalizadas (F001, B001, etc.)
+      - Modo producción/prueba
+      - Envío automático configurable
 
 ## 🛠️ Stack Tecnológico
 
@@ -111,6 +147,7 @@ Sistema completo de gestión de tienda con React, TypeScript y Tailwind CSS.
 - **Axios** - HTTP client
 - **Stripe** - Pagos internacionales
 - **Culqi** - Pagos Perú
+- **NubeFact** - Facturación electrónica Perú
 - **date-fns** - Manejo de fechas
 - **Lucide React** - Iconos
 
@@ -225,6 +262,12 @@ Características:
 - `/admin/categories` - Gestión de categorías
 - `/admin/customers` - Gestión de clientes
 - `/admin/discounts` - Gestión de cupones
+- `/admin/invoices` - **Facturación Electrónica** (Nuevo)
+  - Lista de comprobantes con filtros
+  - Detalle de factura/boleta
+  - Generación desde órdenes
+  - Envío a SUNAT y clientes
+  - Descarga PDF/XML/CDR
 - `/pos` - Punto de venta
 - `/reports` - Reportes de ventas
 - `/reports/financial` - **Reportes Financieros** (Nuevo)
@@ -308,7 +351,7 @@ El frontend se conecta con estos endpoints:
 - `GET /reports/financial/product-profitability` - Rentabilidad por producto
 - `GET /reports/financial/{type}/export` - Exportar cualquier reporte (PDF/Excel/CSV)
 
-### Empleados y Gastos (Nuevo)
+### Empleados y Gastos
 - `GET /employees` - Listar empleados
 - `POST /employees` - Crear empleado
 - `PUT /employees/:id` - Actualizar empleado
@@ -317,6 +360,26 @@ El frontend se conecta con estos endpoints:
 - `POST /expenses` - Crear gasto
 - `PUT /expenses/:id` - Actualizar gasto
 - `DELETE /expenses/:id` - Eliminar gasto
+
+### Facturación Electrónica - NubeFact (Nuevo)
+- `GET /nubefact/config` - Obtener configuración
+- `PUT /nubefact/config` - Actualizar configuración
+- `GET /invoices` - Listar comprobantes (con filtros)
+- `GET /invoices/:id` - Obtener comprobante por ID
+- `GET /invoices/order/:orderId` - Obtener comprobante por orden
+- `POST /invoices/generate/:orderId` - Generar comprobante desde orden
+- `POST /invoices/:id/send-to-sunat` - Enviar comprobante a SUNAT
+- `POST /invoices/:id/send-to-customer` - Enviar comprobante por email
+- `POST /invoices/:id/credit-note` - Generar nota de crédito
+- `POST /invoices/:id/debit-note` - Generar nota de débito
+- `POST /invoices/:id/cancel` - Anular comprobante
+- `GET /invoices/:id/pdf` - Descargar PDF
+- `GET /invoices/:id/xml` - Descargar XML
+- `GET /invoices/:id/cdr` - Descargar CDR (Constancia SUNAT)
+- `GET /invoices/:id/sunat-status` - Consultar estado en SUNAT
+- `GET /invoices/next-number/:type` - Obtener siguiente número de serie
+- `GET /invoices/report` - Reporte de comprobantes
+- `GET /invoices/report/export` - Exportar reporte (PDF/Excel/CSV)
 
 ### Analytics
 - `GET /analytics/trends` - Tendencias de compras
