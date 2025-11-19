@@ -34,6 +34,7 @@ import { PointOfSale } from './features/pos/PointOfSale';
 
 // Reports & Analytics
 import { Reports } from './features/reports/Reports';
+import { FinancialReports } from './features/reports/FinancialReports';
 import { Analytics } from './features/analytics/Analytics';
 
 // Cart
@@ -184,6 +185,16 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]}>
               <Layout><Reports /></Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Financial Reports Route */}
+        <Route
+          path="/reports/financial"
+          element={
+            <ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]}>
+              <Layout><FinancialReports /></Layout>
             </ProtectedRoute>
           }
         />

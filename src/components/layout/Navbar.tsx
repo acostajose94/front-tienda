@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShoppingCart, User, LogOut, Menu, X, BarChart3, Store, Package } from 'lucide-react';
+import { ShoppingCart, User, LogOut, Menu, X, BarChart3, Store, FileText } from 'lucide-react';
 import { useState } from 'react';
 import { useAuthStore } from '@/store/authStore';
 import { useCartStore } from '@/store/cartStore';
@@ -51,6 +51,10 @@ export function Navbar() {
                 <Link to="/reports" className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2">
                   <BarChart3 size={18} />
                   Reportes
+                </Link>
+                <Link to="/reports/financial" className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2">
+                  <FileText size={18} />
+                  Finanzas
                 </Link>
                 <Link to="/analytics" className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium">
                   Analytics

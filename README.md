@@ -88,6 +88,17 @@ Sistema completo de gestión de tienda con React, TypeScript y Tailwind CSS.
     - Historial completo de compras
     - Ver estado de pedidos
 
+14. **Reportes Financieros** (Nuevo)
+    - **Ganancias:** Análisis de ingresos, costos, ganancia bruta/neta, margen de utilidad por categoría
+    - **Impuestos:** Cálculo de IGV (18%), Renta, Municipal, declaraciones exportables
+    - **Nómina:** Gestión de sueldos, deducciones (AFP/ONP), beneficios (CTS, Gratificaciones), reportes por departamento
+    - **Gastos:** Análisis por categoría, tipo (fijos/variables), gastos más altos
+    - **Flujo de Caja:** Ingresos vs egresos, saldo, gráfico de flujo diario
+    - **Rentabilidad por Producto:** Margen, ROI, análisis de productos más rentables
+    - **Exportación:** PDF, Excel, CSV para todos los reportes
+    - **Gestión de Empleados:** CRUD completo con cargos, departamentos, salarios
+    - **Gestión de Gastos:** Registro y categorización de gastos operativos
+
 ## 🛠️ Stack Tecnológico
 
 - **React 18** + **TypeScript**
@@ -216,6 +227,13 @@ Características:
 - `/admin/discounts` - Gestión de cupones
 - `/pos` - Punto de venta
 - `/reports` - Reportes de ventas
+- `/reports/financial` - **Reportes Financieros** (Nuevo)
+  - Ganancias: Ingresos, costos, ganancia bruta/neta, margen
+  - Impuestos: IGV, renta, municipal, declaraciones
+  - Nómina: Sueldos, deducciones, beneficios, CTS
+  - Gastos: Por categoría, tipo, gastos más altos
+  - Flujo de Caja: Ingresos/egresos, saldo, flujo diario
+  - Rentabilidad: Por producto, margen, ROI
 - `/analytics` - Analytics y tendencias
 
 ## 🎨 Características de UX
@@ -278,6 +296,27 @@ El frontend se conecta con estos endpoints:
 - `GET /reports/sales/daily` - Reporte diario
 - `GET /reports/sales/weekly` - Reporte semanal
 - `GET /reports/sales/monthly` - Reporte mensual
+
+### Reportes Financieros (Nuevo)
+- `GET /reports/financial/profit` - Reporte de ganancias
+- `GET /reports/financial/tax` - Reporte de impuestos
+- `GET /reports/financial/tax/export` - Exportar declaración de impuestos
+- `GET /reports/financial/payroll` - Reporte de nómina
+- `GET /reports/financial/payroll/export` - Exportar nómina
+- `GET /reports/financial/expenses` - Reporte de gastos
+- `GET /reports/financial/cash-flow` - Reporte de flujo de caja
+- `GET /reports/financial/product-profitability` - Rentabilidad por producto
+- `GET /reports/financial/{type}/export` - Exportar cualquier reporte (PDF/Excel/CSV)
+
+### Empleados y Gastos (Nuevo)
+- `GET /employees` - Listar empleados
+- `POST /employees` - Crear empleado
+- `PUT /employees/:id` - Actualizar empleado
+- `DELETE /employees/:id` - Eliminar empleado
+- `GET /expenses` - Listar gastos
+- `POST /expenses` - Crear gasto
+- `PUT /expenses/:id` - Actualizar gasto
+- `DELETE /expenses/:id` - Eliminar gasto
 
 ### Analytics
 - `GET /analytics/trends` - Tendencias de compras

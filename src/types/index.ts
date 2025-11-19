@@ -333,3 +333,161 @@ export interface Cart {
   subtotal: number;
   total: number;
 }
+
+// ============================================
+// REPORTES FINANCIEROS
+// ============================================
+
+export interface ProfitReport {
+  period: string;
+  totalRevenue: number;
+  totalCosts: number;
+  grossProfit: number;
+  operatingExpenses: number;
+  netProfit: number;
+  profitMargin: number;
+  byCategory: {
+    categoryId: string;
+    categoryName: string;
+    revenue: number;
+    costs: number;
+    profit: number;
+  }[];
+}
+
+export interface TaxReport {
+  period: string;
+  totalSales: number;
+  taxableBase: number;
+  igv: number; // 18% Peru
+  incomeTax: number;
+  municipalTax: number;
+  otherTaxes: number;
+  totalTaxes: number;
+  breakdown: {
+    date: string;
+    sales: number;
+    igv: number;
+    incomeTax: number;
+  }[];
+}
+
+export interface PayrollReport {
+  period: string;
+  totalEmployees: number;
+  totalGrossSalary: number;
+  totalDeductions: number;
+  totalNetSalary: number;
+  totalBenefits: number;
+  employees: {
+    employeeId: string;
+    employeeName: string;
+    position: string;
+    grossSalary: number;
+    deductions: number;
+    netSalary: number;
+    benefits: number;
+  }[];
+  byDepartment: Record<string, {
+    employees: number;
+    totalSalary: number;
+  }>;
+}
+
+export interface ExpenseReport {
+  period: string;
+  totalExpenses: number;
+  byCategory: {
+    category: string;
+    amount: number;
+    percentage: number;
+  }[];
+  byType: {
+    type: 'FIXED' | 'VARIABLE' | 'ONE_TIME';
+    amount: number;
+  }[];
+  topExpenses: {
+    description: string;
+    amount: number;
+    date: string;
+    category: string;
+  }[];
+}
+
+export interface CashFlowReport {
+  period: string;
+  openingBalance: number;
+  closingBalance: number;
+  totalInflow: number;
+  totalOutflow: number;
+  netCashFlow: number;
+  inflows: {
+    source: string;
+    amount: number;
+  }[];
+  outflows: {
+    destination: string;
+    amount: number;
+  }[];
+  dailyFlow: {
+    date: string;
+    inflow: number;
+    outflow: number;
+    balance: number;
+  }[];
+}
+
+export interface ProductProfitabilityReport {
+  productId: string;
+  productName: string;
+  totalSold: number;
+  revenue: number;
+  cost: number;
+  profit: number;
+  profitMargin: number;
+  roi: number;
+}
+
+export enum FinancialReportType {
+  PROFIT = 'PROFIT',
+  TAX = 'TAX',
+  PAYROLL = 'PAYROLL',
+  EXPENSE = 'EXPENSE',
+  CASH_FLOW = 'CASH_FLOW',
+  PRODUCT_PROFITABILITY = 'PRODUCT_PROFITABILITY',
+}
+
+export interface Employee {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  position: string;
+  department: string;
+  salary: number;
+  hireDate: string;
+  status: 'ACTIVE' | 'INACTIVE' | 'ON_LEAVE';
+  benefits: {
+    healthInsurance: boolean;
+    lifeInsurance: boolean;
+    retirement: boolean;
+    bonus: number;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Expense {
+  id: string;
+  description: string;
+  amount: number;
+  category: string;
+  type: 'FIXED' | 'VARIABLE' | 'ONE_TIME';
+  date: string;
+  storeId?: string;
+  notes?: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
